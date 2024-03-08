@@ -1,5 +1,3 @@
-export * from "./Providers";
-export * from "./LocaleProvider";
 export * from "./Header";
 export * from "./Nav";
 export * from "./Pagination";

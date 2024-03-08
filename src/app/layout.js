@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 
-import { Providers, LocaleProvider } from "@/components";
-import { Recoil } from "@/recoil";
+import { QueryProvider } from "@/query";
+import { RecoilProvider } from "@/recoil";
+import { LocaleProvider } from "@/locale/i18n";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,20 +31,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <head>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0..1,-50..200"
         />
       </head>
-      <Providers>
-        <Recoil>
-          <body className={inter.className}>
-            <LocaleProvider>{children}</LocaleProvider>
-          </body>
-        </Recoil>
-      </Providers>
+      <QueryProvider>
+        <RecoilProvider>
+          <LocaleProvider>
+            <body className={inter.className}>{children}</body>
+          </LocaleProvider>
+        </RecoilProvider>
+      </QueryProvider>
     </html>
   );
 }

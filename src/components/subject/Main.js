@@ -1,6 +1,6 @@
 "use client";
 import dayjs from "dayjs";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -23,19 +23,26 @@ import {
   ReportSVC,
   Clinician,
 } from "./";
+import { useLocale } from "@/hooks";
 import { Loading } from "@/components";
 
-import { getSubject, getHistories, getResults, getTrends, getPredictTrends } from "@/apis";
+import {
+  getSubject,
+  getHistories,
+  getResults,
+  getTrends,
+  getPredictTrends,
+} from "@/apis";
 import { CONDITIONS, GRADES, ERROR_CODE } from "@/constants";
-import { useSubject } from "@/recoil";
-import { LocaleContext } from "@/components/LocaleProvider";
+import { useSubject } from "@/hooks";
 
 import minMax from "dayjs/plugin/minMax";
 dayjs.extend(minMax);
 
 const FVC = ({ data }) => {
   const { t } = useTranslation();
-  const { lang } = useContext(LocaleContext);
+
+  const { locale } = useLocale();
 
   const [subject] = useSubject();
   const { tab, pre_g = [], post_g = [] } = subject;
@@ -44,10 +51,18 @@ const FVC = ({ data }) => {
 
   const g = pre_g.concat(post_g);
   const vfs = trials
-    .map(({ measurementId, graph: { volumeFlow } }, i) => ({ id: measurementId, data: volumeFlow, i }))
+    .map(({ measurementId, graph: { volumeFlow } }, i) => ({
+      id: measurementId,
+      data: volumeFlow,
+      i,
+    }))
     .filter(({ id }) => g.includes(id));
   const tvs = trials
-    .map(({ measurementId, graph: { timeVolume } }, i) => ({ id: measurementId, data: timeVolume, i }))
+    .map(({ measurementId, graph: { timeVolume } }, i) => ({
+      id: measurementId,
+      data: timeVolume,
+      i,
+    }))
     .filter(({ id }) => g.includes(id));
 
   return (
@@ -96,7 +111,7 @@ const FVC = ({ data }) => {
                 </div>
               </div>
               <div className="p-8 space-y-2">
-                <p>{CONDITIONS[diagnosis.condition]?.[lang]}</p>
+                <p>{CONDITIONS[diagnosis.condition]?.[locale]}</p>
               </div>
             </div>
           </div>
@@ -107,10 +122,14 @@ const FVC = ({ data }) => {
             </div>
             {Object.entries(GRADES).map(([key, value]) => {
               return (
-                <div key={`grade-${key}`} className="text-sm flex border-t [&>div]:flex [&>div]:items-center">
+                <div
+                  key={`grade-${key}`}
+                  className="text-sm flex border-t [&>div]:flex [&>div]:items-center"
+                >
                   <div
                     aria-checked={diagnosis.suitability === key}
-                    className="relative text-gray-400 border-r w-16 min-w-[4rem] justify-center aria-checked:text-primary">
+                    className="relative text-gray-400 border-r w-16 min-w-[4rem] justify-center aria-checked:text-primary"
+                  >
                     {key}
                     {diagnosis.suitability === key && (
                       <span className="absolute w-1.5 h-1.5 bg-primary top-2 right-2 rounded-full" />
@@ -126,10 +145,14 @@ const FVC = ({ data }) => {
             <div className="p-4 font-medium">{t("subject.l.diag_rst")}</div>
             {Object.entries(CONDITIONS).map(([key, value]) => {
               return (
-                <div key={`grade-${key}`} className="text-sm flex border-t [&>div]:flex [&>div]:items-center">
+                <div
+                  key={`grade-${key}`}
+                  className="text-sm flex border-t [&>div]:flex [&>div]:items-center"
+                >
                   <div
                     aria-checked={diagnosis.condition === key}
-                    className="relative text-gray-400 border-r w-60 justify-center aria-checked:text-primary">
+                    className="relative text-gray-400 border-r w-60 justify-center aria-checked:text-primary"
+                  >
                     {value["title"]}
                     {diagnosis.condition === key && (
                       <span className="absolute w-1.5 h-1.5 bg-primary top-2 right-2 rounded-full" />
@@ -158,8 +181,13 @@ const FVC = ({ data }) => {
             </div>
             {Object.entries(ERROR_CODE).map(([key, value]) => {
               return (
-                <div key={`grade-${key}`} className="text-sm flex border-t [&>div]:flex [&>div]:items-center">
-                  <div className="border-r w-16 min-w-[4rem] justify-center">{key}</div>
+                <div
+                  key={`grade-${key}`}
+                  className="text-sm flex border-t [&>div]:flex [&>div]:items-center"
+                >
+                  <div className="border-r w-16 min-w-[4rem] justify-center">
+                    {key}
+                  </div>
                   <div className="p-4">{t(value)}</div>
                 </div>
               );
@@ -179,7 +207,11 @@ const SVC = ({ data }) => {
 
   const g = pre_g.concat(post_g);
   const tvs = trials
-    .map(({ measurementId, graph: { timeVolume } }, i) => ({ id: measurementId, data: timeVolume, i }))
+    .map(({ measurementId, graph: { timeVolume } }, i) => ({
+      id: measurementId,
+      data: timeVolume,
+      i,
+    }))
     .filter(({ id }) => g.includes(id));
 
   return (
@@ -208,20 +240,44 @@ export const Trends = ({ data, to, lastTrendDate, predictData }) => {
     .map((_, i) => dayjs(to).subtract(i, "M").format("YYYY-MM"))
     .reverse();
 
-  const fvc = xValues.map((x) => ({ x, y: data.find(({ date }) => date === x)?.fvc || null }));
-  const fev1 = xValues.map((x) => ({ x, y: data.find(({ date }) => date === x)?.fev1 || null }));
-  const pef = xValues.map((x) => ({ x, y: data.find(({ date }) => date === x)?.pef || null }));
-  const fef25_75 = xValues.map((x) => ({ x, y: data.find(({ date }) => date === x)?.fef25_75 || null }));
-  const fev1per = xValues.map((x) => ({ x, y: data.find(({ date }) => date === x)?.fev1per || null }));
+  const fvc = xValues.map((x) => ({
+    x,
+    y: data.find(({ date }) => date === x)?.fvc || null,
+  }));
+  const fev1 = xValues.map((x) => ({
+    x,
+    y: data.find(({ date }) => date === x)?.fev1 || null,
+  }));
+  const pef = xValues.map((x) => ({
+    x,
+    y: data.find(({ date }) => date === x)?.pef || null,
+  }));
+  const fef25_75 = xValues.map((x) => ({
+    x,
+    y: data.find(({ date }) => date === x)?.fef25_75 || null,
+  }));
+  const fev1per = xValues.map((x) => ({
+    x,
+    y: data.find(({ date }) => date === x)?.fev1per || null,
+  }));
 
   const predictFvc = !!predictData.length
-    ? [fvc.find(({ x }) => x === lastTrendDate), ...predictData.map(({ date, fvc }) => ({ x: date, y: fvc }))]
+    ? [
+        fvc.find(({ x }) => x === lastTrendDate),
+        ...predictData.map(({ date, fvc }) => ({ x: date, y: fvc })),
+      ]
     : [];
   const predictFev1 = !!predictData.length
-    ? [fev1.find(({ x }) => x === lastTrendDate), ...predictData.map(({ date, fev1 }) => ({ x: date, y: fev1 }))]
+    ? [
+        fev1.find(({ x }) => x === lastTrendDate),
+        ...predictData.map(({ date, fev1 }) => ({ x: date, y: fev1 })),
+      ]
     : [];
   const predictPef = !!predictData.length
-    ? [pef.find(({ x }) => x === lastTrendDate), ...predictData.map(({ date, pef }) => ({ x: date, y: pef }))]
+    ? [
+        pef.find(({ x }) => x === lastTrendDate),
+        ...predictData.map(({ date, pef }) => ({ x: date, y: pef })),
+      ]
     : [];
   const predictFef = !!predictData.length
     ? [
@@ -314,8 +370,18 @@ export const Main = () => {
   });
 
   const historiesQuery = useQuery({
-    queryKey: ["histories", chartNumber, date_from || "2000-01-01", date_to || "2099-12-31"],
-    queryFn: () => getHistories({ chartNumber, from: date_from || "2000-01-01", to: date_to || "2099-12-31" }),
+    queryKey: [
+      "histories",
+      chartNumber,
+      date_from || "2000-01-01",
+      date_to || "2099-12-31",
+    ],
+    queryFn: () =>
+      getHistories({
+        chartNumber,
+        from: date_from || "2000-01-01",
+        to: date_to || "2099-12-31",
+      }),
     enabled: !!chartNumber,
   });
 
@@ -345,7 +411,9 @@ export const Main = () => {
 
   const lastTrendDate =
     !!(trendsData.response || []).length &&
-    dayjs.max((trendsData.response || []).map(({ date }) => dayjs(date))).format("YYYY-MM");
+    dayjs
+      .max((trendsData.response || []).map(({ date }) => dayjs(date)))
+      .format("YYYY-MM");
 
   const predictQuery = useQuery({
     queryKey: ["trends", chartNumber, lastTrendDate],
@@ -360,7 +428,10 @@ export const Main = () => {
   const isError = (code === 200 && subCode === 2004) || subjectQuery.isError;
 
   useEffect(() => {
-    if (isSuccess) setSubject((prev) => (prev.chartNumber === chartNumber ? prev : { chartNumber }));
+    if (isSuccess)
+      setSubject((prev) =>
+        prev.chartNumber === chartNumber ? prev : { chartNumber }
+      );
   }, [isSuccess]);
 
   const options = [

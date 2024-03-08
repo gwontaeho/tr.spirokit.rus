@@ -1,26 +1,29 @@
 "use client";
 
-import { useEffect, useState, useContext } from "react";
-import i18n from "@/locales/i18n";
-import { LocaleContext } from "./LocaleProvider";
+import { useLocale } from "@/hooks";
 
 export const I18nButton = () => {
-    const { lang, setLang } = useContext(LocaleContext);
+  const { locale, setLocale } = useLocale();
 
-    const locales = [
-        { label: "KO", value: "ko" },
-        { label: "EN", value: "en" },
-    ];
+  const locales = [
+    { label: "KO", value: "ko" },
+    { label: "EN", value: "en" },
+    { label: "RU", value: "ru" },
+  ];
 
-    return (
-        <select className="input w-fit" value={lang} onChange={(e) => setLang(e.target.value)}>
-            {locales.map(({ label, value }) => {
-                return (
-                    <option key={`locale-${value}`} value={value}>
-                        {label}
-                    </option>
-                );
-            })}
-        </select>
-    );
+  return (
+    <select
+      className="input w-fit"
+      value={locale}
+      onChange={(e) => setLocale(e.target.value)}
+    >
+      {locales.map(({ label, value }) => {
+        return (
+          <option key={`locale-${value}`} value={value}>
+            {label}
+          </option>
+        );
+      })}
+    </select>
+  );
 };

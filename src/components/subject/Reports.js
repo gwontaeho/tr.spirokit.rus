@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { ResponsiveLine } from "@nivo/line";
 import { RACES, CONDITIONS } from "@/constants";
-import { LocaleContext } from "@/components/LocaleProvider";
-import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks";
 
 const GENDERS = { m: "Male", f: "Female" };
 
@@ -19,9 +18,18 @@ const VF = ({ label, data }) => {
   const getMaxRatio = () => {
     const map = data.map((v) => v.data).flat();
 
-    const ratioMaxY = map.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), { y: initMaxY })["y"] / initMaxY;
-    const ratioMinY = map.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), { y: initMinY })["y"] / initMinY;
-    const ratioMaxX = map.reduce((prev, curr) => (prev.x > curr.x ? prev : curr), { x: initMaxX })["x"] / initMaxX;
+    const ratioMaxY =
+      map.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), {
+        y: initMaxY,
+      })["y"] / initMaxY;
+    const ratioMinY =
+      map.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), {
+        y: initMinY,
+      })["y"] / initMinY;
+    const ratioMaxX =
+      map.reduce((prev, curr) => (prev.x > curr.x ? prev : curr), {
+        x: initMaxX,
+      })["x"] / initMaxX;
     return Math.max(ratioMaxY, ratioMinY, ratioMaxX);
   };
 
@@ -79,10 +87,21 @@ const TV = ({ label, data }) => {
   const initMaxX = 5;
 
   const mapTv = data.map((v) => v.data).flat();
-  const maxTvX = Math.ceil(mapTv.reduce((prev, curr) => (prev.x > curr.x ? prev : curr), { x: initMaxX })["x"]);
-  const maxTvY = Math.ceil(mapTv.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), { y: initMaxY })["y"]);
+  const maxTvX = Math.ceil(
+    mapTv.reduce((prev, curr) => (prev.x > curr.x ? prev : curr), {
+      x: initMaxX,
+    })["x"]
+  );
+  const maxTvY = Math.ceil(
+    mapTv.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), {
+      y: initMaxY,
+    })["y"]
+  );
 
-  const d = data.map((v) => ({ ...v, data: [...v.data, { x: maxTvX, y: v.data.at(-1).y }] }));
+  const d = data.map((v) => ({
+    ...v,
+    data: [...v.data, { x: maxTvX, y: v.data.at(-1).y }],
+  }));
 
   const getTicks = (max) => {
     const interval = 1.5;
@@ -134,8 +153,14 @@ const TV_SVC = ({ label, data }) => {
 
   const getMaxRatio = () => {
     const map = data.map((v) => v.data).flat();
-    const ratioMaxY = map.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), { y: initMaxY })["y"] / initMaxY;
-    const ratioMinY = map.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), { y: initMinY })["y"] / initMinY;
+    const ratioMaxY =
+      map.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), {
+        y: initMaxY,
+      })["y"] / initMaxY;
+    const ratioMinY =
+      map.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), {
+        y: initMinY,
+      })["y"] / initMinY;
     return Math.max(ratioMaxY, ratioMinY);
   };
 
@@ -195,23 +220,53 @@ const TV_SVC = ({ label, data }) => {
 
 export const ReportFVC = ({ data }) => {
   const { t } = useTranslation();
-  const { lang } = useContext(LocaleContext);
+  const { locale } = useLocale();
 
-  const { subject = {}, calibration = {}, trials = [], diagnosis = {}, clinic = {} } = data;
-  const bestPre = trials.find(({ bronchodilator, best }) => bronchodilator === "pre" && best) || {};
-  const bestPost = trials.find(({ bronchodilator, best }) => bronchodilator === "post" && best) || {};
-  const trialsPre = trials.filter(({ bronchodilator }) => bronchodilator === "pre");
+  const {
+    subject = {},
+    calibration = {},
+    trials = [],
+    diagnosis = {},
+    clinic = {},
+  } = data;
+  const bestPre =
+    trials.find(
+      ({ bronchodilator, best }) => bronchodilator === "pre" && best
+    ) || {};
+  const bestPost =
+    trials.find(
+      ({ bronchodilator, best }) => bronchodilator === "post" && best
+    ) || {};
+  const trialsPre = trials.filter(
+    ({ bronchodilator }) => bronchodilator === "pre"
+  );
   const trialsPreGraphs = trialsPre.map(({ measurementId, graph }) => ({
     id: measurementId,
     data: graph.volumeFlow,
     type: "pre",
   }));
 
-  const bestPreVf = bestPre.graph?.volumeFlow && { id: "001", data: bestPre.graph?.volumeFlow, type: "pre" };
-  const bestPostVf = bestPost.graph?.volumeFlow && { id: "002", data: bestPost.graph?.volumeFlow, type: "post" };
+  const bestPreVf = bestPre.graph?.volumeFlow && {
+    id: "001",
+    data: bestPre.graph?.volumeFlow,
+    type: "pre",
+  };
+  const bestPostVf = bestPost.graph?.volumeFlow && {
+    id: "002",
+    data: bestPost.graph?.volumeFlow,
+    type: "post",
+  };
 
-  const bestPreTv = bestPre.graph?.timeVolume && { id: "001_", data: bestPre.graph?.timeVolume, type: "pre" };
-  const bestPostTv = bestPost.graph?.timeVolume && { id: "002_", data: bestPost.graph?.timeVolume, type: "post" };
+  const bestPreTv = bestPre.graph?.timeVolume && {
+    id: "001_",
+    data: bestPre.graph?.timeVolume,
+    type: "pre",
+  };
+  const bestPostTv = bestPost.graph?.timeVolume && {
+    id: "002_",
+    data: bestPost.graph?.timeVolume,
+    type: "post",
+  };
 
   const vfs = [bestPreVf, bestPostVf].filter(Boolean);
   const tvs = [bestPreTv, bestPostTv].filter(Boolean);
@@ -230,15 +285,26 @@ export const ReportFVC = ({ data }) => {
 
   return (
     <div className="absolute w-0 h-0 overflow-hidden">
-      <div id="report-0" className="relative w-[1090px] h-[1682px] min-w-[1090px] min-h-[1682px] px-[30px] bg-white">
+      <div
+        id="report-0"
+        className="relative w-[1090px] h-[1682px] min-w-[1090px] min-h-[1682px] px-[30px] bg-white"
+      >
         <div className="absolute top-0 left-0 w-[144px] h-[144px]">
-          <Image priority src="/logo_tr.svg" alt="logo_tr" width={144} height={144} />
+          <Image
+            priority
+            src="/logo_tr.svg"
+            alt="logo_tr"
+            width={144}
+            height={144}
+          />
         </div>
         <div className="flex flex-col items-center justify-between h-[120px] pt-[32px] text-[#1B3FA7] font-[700]">
           <div className="text-[30px]">SPIROMETRY REPORT</div>
           <div className="text-[24px]">[ {clinic.name} ]</div>
         </div>
-        <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">[ Subject Result ]</div>
+        <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">
+          [ Subject Result ]
+        </div>
         <table className="w-full mb-[8px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
@@ -310,9 +376,14 @@ export const ReportFVC = ({ data }) => {
               </thead>
               <tbody>
                 {TITLES.map(({ l, t }) => {
-                  const result = (bestPre.results || []).find(({ title }) => title === t) || {};
+                  const result =
+                    (bestPre.results || []).find(({ title }) => title === t) ||
+                    {};
                   return (
-                    <tr key={`rfb-${t}`} className="[&>th]:font-[500] [&>th]:text-left [&>td]:text-center">
+                    <tr
+                      key={`rfb-${t}`}
+                      className="[&>th]:font-[500] [&>th]:text-left [&>td]:text-center"
+                    >
                       <th>{l}</th>
                       <td>{result.unit}</td>
                       <td>{result.meas || "-"}</td>
@@ -356,7 +427,10 @@ export const ReportFVC = ({ data }) => {
             <div className="h-[32px] border-b" />
             {TITLES.map(({ t, u }) => {
               return (
-                <div key={`rru-${t}`} className="text-center h-[28px] leading-[28px]">
+                <div
+                  key={`rru-${t}`}
+                  className="text-center h-[28px] leading-[28px]"
+                >
                   {u}
                 </div>
               );
@@ -372,11 +446,14 @@ export const ReportFVC = ({ data }) => {
                   {TITLES.map(({ t }) => {
                     return (
                       <div key={`rrt-${t}`} className="h-[28px] leading-[28px]">
-                        {data?.results?.find(({ title }) => title === t)?.meas || "-"}
+                        {data?.results?.find(({ title }) => title === t)
+                          ?.meas || "-"}
                       </div>
                     );
                   })}
-                  <div className="h-[28px] leading-[28px]">{data?.errorCode}</div>
+                  <div className="h-[28px] leading-[28px]">
+                    {data?.errorCode}
+                  </div>
                 </li>
               );
             })}
@@ -385,7 +462,11 @@ export const ReportFVC = ({ data }) => {
           {Array(8)
             .fill(null)
             .map((_, i) => {
-              const data = trialsPreGraphs[i] || { id: "empty", type: "pre", data: [{ x: 0, y: 0 }] };
+              const data = trialsPreGraphs[i] || {
+                id: "empty",
+                type: "pre",
+                data: [{ x: 0, y: 0 }],
+              };
               return (
                 <div key={`pre-graph-${i}`} className="h-[208px]">
                   <VF data={[data]} label={`Pre Trial ${i + 1}`} />
@@ -393,11 +474,15 @@ export const ReportFVC = ({ data }) => {
               );
             })}
         </div>
-        <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[8px]">Interpreatation</div>
+        <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[8px]">
+          Interpreatation
+        </div>
         <div className="font-[700] mb-[8px]">
           FVL Error Code {diagnosis.errorCode} Grade {diagnosis.suitability}
         </div>
-        <div className="font-[500]">{CONDITIONS[diagnosis.condition]?.[lang]}</div>
+        <div className="font-[500]">
+          {CONDITIONS[diagnosis.condition]?.[locale]}
+        </div>
       </div>
     </div>
   );
@@ -405,12 +490,28 @@ export const ReportFVC = ({ data }) => {
 
 export const ReportSVC = ({ data }) => {
   const { subject = {}, calibration = {}, trials = [], clinic = {} } = data;
-  const bestPre = trials.find(({ bronchodilator, best }) => bronchodilator === "pre" && best) || {};
-  const bestPost = trials.find(({ bronchodilator, best }) => bronchodilator === "post" && best) || {};
-  const trialsPre = trials.filter(({ bronchodilator }) => bronchodilator === "pre");
+  const bestPre =
+    trials.find(
+      ({ bronchodilator, best }) => bronchodilator === "pre" && best
+    ) || {};
+  const bestPost =
+    trials.find(
+      ({ bronchodilator, best }) => bronchodilator === "post" && best
+    ) || {};
+  const trialsPre = trials.filter(
+    ({ bronchodilator }) => bronchodilator === "pre"
+  );
 
-  const bestPreTv = bestPre.graph?.timeVolume && { id: "001_", data: bestPre.graph?.timeVolume, type: "pre" };
-  const bestPostTv = bestPost.graph?.timeVolume && { id: "002_", data: bestPost.graph?.timeVolume, type: "post" };
+  const bestPreTv = bestPre.graph?.timeVolume && {
+    id: "001_",
+    data: bestPre.graph?.timeVolume,
+    type: "pre",
+  };
+  const bestPostTv = bestPost.graph?.timeVolume && {
+    id: "002_",
+    data: bestPost.graph?.timeVolume,
+    type: "post",
+  };
 
   const tvs = [bestPreTv, bestPostTv].filter(Boolean);
 
@@ -423,15 +524,26 @@ export const ReportSVC = ({ data }) => {
 
   return (
     <div className="absolute w-0 h-0 overflow-hidden">
-      <div id="report-1" className="relative w-[1090px] h-[1682px] px-[30px] bg-white">
+      <div
+        id="report-1"
+        className="relative w-[1090px] h-[1682px] px-[30px] bg-white"
+      >
         <div className="absolute top-0 left-0 w-[144px] h-[144px]">
-          <Image priority src="/logo_tr.svg" alt="logo_tr" width={144} height={144} />
+          <Image
+            priority
+            src="/logo_tr.svg"
+            alt="logo_tr"
+            width={144}
+            height={144}
+          />
         </div>
         <div className="flex flex-col items-center justify-between h-[120px] pt-[32px] text-[#1B3FA7] font-[700]">
           <div className="text-[30px]">SPIROMETRY REPORT</div>
           <div className="text-[24px]">[ {clinic.name} ]</div>
         </div>
-        <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">[ Subject Result ]</div>
+        <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">
+          [ Subject Result ]
+        </div>
         <table className="w-full mb-[8px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
@@ -503,11 +615,14 @@ export const ReportSVC = ({ data }) => {
               </thead>
               <tbody>
                 {TITLES_SVC.map(({ l, t }) => {
-                  const result = (bestPre.results || []).find(({ title }) => title === t) || {};
+                  const result =
+                    (bestPre.results || []).find(({ title }) => title === t) ||
+                    {};
                   return (
                     <tr
                       key={`report-svc-best-${t}`}
-                      className="h-[28px] [&>th]:font-[500] [&>th]:text-left [&>td]:text-center">
+                      className="h-[28px] [&>th]:font-[500] [&>th]:text-left [&>td]:text-center"
+                    >
                       <th>{l}</th>
                       <td>{result.unit}</td>
                       <td>{result.meas || "-"}</td>
@@ -549,7 +664,10 @@ export const ReportSVC = ({ data }) => {
             <div className="h-[32px] border-b" />
             {TITLES_SVC.map(({ t, u }) => {
               return (
-                <div key={`2e2-${t}`} className="text-center h-[28px] leading-[28px]">
+                <div
+                  key={`2e2-${t}`}
+                  className="text-center h-[28px] leading-[28px]"
+                >
                   {u}
                 </div>
               );
@@ -564,8 +682,12 @@ export const ReportSVC = ({ data }) => {
                   <div className="h-[32px] border-b">Trial {i + 1}</div>
                   {TITLES_SVC.map(({ t }) => {
                     return (
-                      <div key={`21dffg-${t}`} className="h-[28px] leading-[28px]">
-                        {data?.results?.find(({ title }) => title === t)?.meas || "-"}
+                      <div
+                        key={`21dffg-${t}`}
+                        className="h-[28px] leading-[28px]"
+                      >
+                        {data?.results?.find(({ title }) => title === t)
+                          ?.meas || "-"}
                       </div>
                     );
                   })}
