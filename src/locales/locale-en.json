@@ -1,0 +1,185 @@
+{
+  "signin": {
+    "l": {
+      "id": "ID",
+      "pw": "Password",
+      "signin": "Sign in",
+      "signup": "Sign up"
+    },
+    "m": {
+      "v_0": "Click sign in button after entering your ID and password.",
+      "v_1": "Check your ID and password.",
+      "v_2": "Administrator's authorization is required."
+    }
+  },
+  "signup": {
+    "l": {
+      "nm": "Name",
+      "id": "ID",
+      "pw": "Password",
+      "ctr": "Country",
+      "org": "Organization",
+      "role": "Role",
+      "signup": "Sign up"
+    },
+    "m": {
+      "v_0": "Enter your name.",
+      "v_1": "ID should contain 5~20 english letters or numbers.",
+      "v_2": "This ID is already used.",
+      "v_3": "Password should contain 8~20 English letters, numbers, or special characters."
+    }
+  },
+  "layout": {
+    "l": {
+      "sch_sbj": "Search Subject",
+      "cli_mng": "Clinician management",
+      "dvi_mng": "Device management",
+      "rct_sch": "Recent search",
+      "rst": "Result",
+      "sbj_reg": "Subject registration",
+      "sbj_upt": "Subject modification",
+      "settings": "Settings"
+    }
+  },
+  "subjects": {
+    "l": {
+      "sbj_reg": "Subject registration",
+      "nm": "Name",
+      "cn": "Chart No.",
+      "m": "Male",
+      "f": "Female",
+      "sex": "Sex",
+      "birth": "Date of birth"
+    },
+    "m": {
+      "p_0": "Search by chart number or name"
+    }
+  },
+  "subject": {
+    "l": {
+      "sbj_inf": "Subject information",
+      "cn": "Chart No.",
+      "nm": "Name",
+      "birth": "Date of birth",
+      "sex": "Sex",
+      "m": "Male",
+      "f": "Female",
+      "wgt": "Weight",
+      "hgt": "Height",
+      "exp": "Experience",
+      "y": "Yes",
+      "n": "No",
+      "cur": "Currently",
+      "smok": "Smoking",
+      "n_smok": "Stopping smoking",
+      "p_year": "Pack-year",
+      "pack": "Pack",
+      "period": "Smoking Period",
+      "mdf": "Modify",
+      "cli_inf": "Clinician information",
+      "role": "Role",
+      "mea_his": "Measurement history",
+      "all": "All",
+      "start": "Start date",
+      "end": "End date",
+      "close": "Close",
+      "ok": "OK",
+      "mea_type": "Measurement type",
+      "rst_v": "Result value",
+      "tot_gph": "Total grapth",
+      "f_diag": "Final diagnosis",
+      "mea_time": "Time",
+      "ept_v": "Expected value",
+      "per": "Percent",
+      "n_ran": "Normal range",
+      "mea_lev": "Measurement level",
+      "diag_rst": "Diagnosis result",
+      "err_code": "Error code"
+    },
+    "m": {
+      "i_0": "No result found.",
+      "i_1": "Please select the graph.",
+      "i_2": "Overall score of adequacy and repeatability",
+      "i_3": "If each digit satisfies explained condition, each is displayed as 1 or 0."
+    },
+    "p": {
+      "dr_0": "Normal : When the forced vital capacity (FVC) rate is 80% or higher, FEV1% is 70% or higher, and the mid-expiratory flow rate (FEF25-75%) is 70% or higher.",
+      "dr_1": "Obstructive : When the forced vital capacity (FVC) rate is 80% or higher, FEV1% is 70% or higher, but the mid-expiratory flow rate (FEF25-75%) is less than 70%.",
+      "dr_2": "Restricted : When FEV1% is 70% or higher, but the forced vital capacity (FVC) rate is less than 80%.",
+      "dr_3": "Obstructive Mild : Mild obstructive ventilatory impairment when the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and the 1-second forced expiratory volume (FEV1) rate is greater than 70%.",
+      "dr_4": "Obstructive Abnormal : Moderate obstructive ventilatory impairment when the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and the 1-second forced expiratory volume (FEV1) rate is 60-70%.",
+      "dr_5": "Obstructive Moderate : Moderate obstructive ventilatory impairment when the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and the 1-second forced expiratory volume (FEV1) rate is 50-59%.",
+      "dr_6": "Obstructive Severe : Severe obstructive ventilatory impairment when the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and the 1-second forced expiratory volume (FEV1) rate is 35-49%.",
+      "dr_7": "Obstructive Very Severe : Very severe obstructive ventilatory impairment when the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and the 1-second forced expiratory volume (FEV1) rate is less than 35%.",
+      "dr_8": "Mixed : Mixed ventilatory impairment when the forced vital capacity (FVC) rate is less than 80%, and FEV1% is less than 70%.",
+      "dr_9": "Asthma Suspected : When the forced vital capacity (FVC) rate is 80% or higher, FEV1% is less than 70%, and there is a difference of 12% or more in FVC when compared with post-results (showing a pattern of restrictive lung disease, but positive for asthma when compared with post-test results).",
+      "ec_0": "Indicates whether the reproducibility of FVC is satisfied among the appropriate measurements.",
+      "ec_1": "Indicates whether the reproducibility of FEV1 is satisfied among the appropriate measurements.",
+      "ec_2": "Indicates whether the reproducibility of PEF is satisfied among the appropriate measurements.",
+      "ec_3": "Indicates whether the conditions for extrapolated volume (Vext) of the representative measurement are satisfied. Should be less than 5% or 150ml compared to FVC.",
+      "ec_4": "Indicates whether the conditions for the high-pitched portion (PFT) of the representative measurement are satisfied. PEF should be reached within 0.12 seconds.",
+      "ec_5": "Indicates whether the conditions for expiratory time (FET) of the representative measurement are satisfied. There must be a clear expiration record for at least 1 second.",
+      "ml_0": "Suitable for examination with three or more appropriate measurements, demonstrating excellent reproducibility in FVC, FEV1, and PEF. The values are interpretable for pulmonary function.",
+      "ml_1": "Suitable for examination with three or more appropriate measurements, demonstrating good reproducibility in FVC, FEV1, and PEF. The values are interpretable for pulmonary function.",
+      "ml_2": "Suitable for examination with two or more appropriate measurements, demonstrating fair reproducibility in FVC, FEV1, and PEF. Caution is needed in the interpretation of pulmonary function.",
+      "ml_3": "Suitable for examination with one or more appropriate measurements, demonstrating fair reproducibility in FVC, FEV1, and PEF, or calculations are not possible. Not suitable for interpreting pulmonary function.",
+      "ml_4": "No appropriate measurements are available, making reproducibility calculations impossible. Not suitable for interpreting pulmonary function."
+    }
+  },
+  "cli": {
+    "l": {
+      "nm": "Name",
+      "role": "Role",
+      "reg_dt": "Registration",
+      "aut_man": "Status",
+      "aut": "Authorize",
+      "den": "Deny"
+    },
+    "m": {
+      "p_0": "Search by name"
+    }
+  },
+  "dev": {
+    "l": {
+      "list": "Device list",
+      "sn": "Serial No.",
+      "cnt": "Calibration times",
+      "his": "Calibration history",
+      "down": "Download calibration result"
+    }
+  },
+  "reg_upt": {
+    "l": {
+      "cn": "Chart No.",
+      "cli": "Clinician",
+      "nm": "Name",
+      "sex": "Sex",
+      "m": "Male",
+      "f": "Female",
+      "hgt": "Height",
+      "wgt": "Weight",
+      "birth": "Date of birth",
+      "exp": "Experience",
+      "curr": "Currently",
+      "y": "Yes",
+      "n": "No",
+      "smok": "Smoking",
+      "n_smok": "Stopping smoking",
+      "age_start": "Age of start",
+      "age_stop": "Age of stop",
+      "p_year": "Pack-year",
+      "ok": "OK",
+      "cancel": "Cancel",
+      "close": "Close",
+      "act_inf": "Account information",
+      "role": "Role",
+      "reg": "Registration",
+      "upt": "Modification",
+      "out": "Sign out"
+    },
+    "m": {
+      "reg": "Register subject?",
+      "upt": "Modify subject information?"
+    }
+  }
+}

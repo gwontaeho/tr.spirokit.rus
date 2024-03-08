@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-gray-50;
+    }
+    img {
+        @apply inline-block;
+    }
+}
+
+@layer components {
+    .input {
+        @apply rounded-lg border border-gray-300 h-10 px-4 w-96 bg-white outline-primary aria-[invalid=true]:border-red-600 aria-[invalid=true]:outline-red-600;
+    }
+    .card {
+        @apply rounded-lg shadow bg-white;
+    }
+}
+
+html {
+    letter-spacing: 0.025em;
+}
+
+@media (max-width: 1440px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #9ca3afaa;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e5e7ebaa;
+    border-radius: 4px;
+}
