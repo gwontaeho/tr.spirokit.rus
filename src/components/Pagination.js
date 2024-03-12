@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 export const Pagination = ({ page = 1, perPage = 10, count = 0, range = 5, onChange }) => {
@@ -30,7 +31,10 @@ export const Pagination = ({ page = 1, perPage = 10, count = 0, range = 5, onCha
 
                 return (
                     <li key={`pagination-${r}-${i}`}>
-                        <button className={className + (n === page ? " text-primary font-bold" : "")} onClick={() => onChange(n)}>
+                        <button
+                            className={className + (n === page ? " text-primary font-bold" : "")}
+                            onClick={() => onChange(n)}
+                        >
                             {n}
                         </button>
                     </li>
