@@ -303,32 +303,32 @@ export const ReportFVC = ({ data }) => {
           <div className="text-[24px]">[ {clinic.name} ]</div>
         </div>
         <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">
-          [ Subject Result ]
+          [ {t("SR.SUB_RSLT")} ]
         </div>
         <table className="w-full mb-[8px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
-              <th>Name</th>
+              <th>{t("SR.NM")}</th>
               <td>{subject.name}</td>
-              <th>Race</th>
+              <th>{t("SR.RACE")}</th>
               <td>{RACES[subject.race]}</td>
-              <th>Chart Number</th>
+              <th>{t("SR.CN")}</th>
               <td>{subject.chartNumber}</td>
             </tr>
             <tr>
-              <th>Age</th>
+              <th>{t("SR.AGE")}</th>
               <td>{subject.age}</td>
-              <th>Height(cm)</th>
+              <th>{t("SR.HGHT")}(cm)</th>
               <td>{subject.height}</td>
-              <th>Physician</th>
+              <th>{t("SR.CLI")}</th>
               <td>{subject.clinicianName}</td>
             </tr>
             <tr>
-              <th>Gender</th>
+              <th>{t("SR.SEX")}</th>
               <td>{GENDERS[subject.gender]}</td>
-              <th>Weight(kg)</th>
+              <th>{t("SR.WGHT")}(kg)</th>
               <td>{subject.weight}</td>
-              <th>Meas Date</th>
+              <th>{t("SR.DATE")}</th>
               <td>{dayjs(bestPre.date).format("YYYY-MM-DD")}</td>
             </tr>
           </tbody>
@@ -358,7 +358,7 @@ export const ReportFVC = ({ data }) => {
           </tbody>
         </table>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
-          Spirometry(BTPS) Best Data
+          {t("SR.BD")}
         </div>
         <div className="flex mb-[16px]">
           <div className="flex-1">
@@ -409,7 +409,7 @@ export const ReportFVC = ({ data }) => {
           </div>
         </div>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
-          Spirometry(BTPS) All Trials Pre Data
+          {t("SR.ATPD")}
         </div>
         <ul className="flex mb-[16px] text-[14px] [&>li]:flex-1">
           <li>
@@ -475,7 +475,7 @@ export const ReportFVC = ({ data }) => {
             })}
         </div>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[8px]">
-          Interpreatation
+          {t("SR.INTERP")}
         </div>
         <div className="font-[700] mb-[8px]">
           FVL Error Code {diagnosis.errorCode} Grade {diagnosis.suitability}
@@ -489,6 +489,8 @@ export const ReportFVC = ({ data }) => {
 };
 
 export const ReportSVC = ({ data }) => {
+  const { t } = useTranslation();
+
   const { subject = {}, calibration = {}, trials = [], clinic = {} } = data;
   const bestPre =
     trials.find(
@@ -542,32 +544,32 @@ export const ReportSVC = ({ data }) => {
           <div className="text-[24px]">[ {clinic.name} ]</div>
         </div>
         <div className="text-right font-[700] text-[#1B3FA7] mb-[8px]">
-          [ Subject Result ]
+          [ {t("SR.SUB_RSLT")} ]
         </div>
         <table className="w-full mb-[8px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
-              <th>Name</th>
+              <th>{t("SR.NM")}</th>
               <td>{subject.name}</td>
-              <th>Race</th>
+              <th>{t("SR.RACE")}</th>
               <td>{RACES[subject.race]}</td>
-              <th>Chart Number</th>
+              <th>{t("SR.CN")}</th>
               <td>{subject.chartNumber}</td>
             </tr>
             <tr>
-              <th>Age</th>
+              <th>{t("SR.AGE")}</th>
               <td>{subject.age}</td>
-              <th>Height(cm)</th>
+              <th>{t("SR.HGHT")}(cm)</th>
               <td>{subject.height}</td>
-              <th>Physician</th>
+              <th>{t("SR.CLI")}</th>
               <td>{subject.clinicianName}</td>
             </tr>
             <tr>
-              <th>Gender</th>
+              <th>{t("SR.SEX")}</th>
               <td>{GENDERS[subject.gender]}</td>
-              <th>Weight(kg)</th>
+              <th>{t("SR.WGHT")}(kg)</th>
               <td>{subject.weight}</td>
-              <th>Meas Date</th>
+              <th>{t("SR.DATE")}</th>
               <td>{dayjs(bestPre.date).format("YYYY-MM-DD")}</td>
             </tr>
           </tbody>
@@ -597,7 +599,7 @@ export const ReportSVC = ({ data }) => {
           </tbody>
         </table>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
-          Spirometry(BTPS) Best Data
+          {t("SR.BD")}
         </div>
         <div className="flex mb-[16px]">
           <div className="flex-1">
@@ -647,7 +649,7 @@ export const ReportSVC = ({ data }) => {
           </div>
         </div>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
-          Spirometry(BTPS) All Trials Pre Data
+          {t("SR.ATPD")}
         </div>
         <ul className="flex mb-[16px] text-[14px] [&>li]:flex-1">
           <li>

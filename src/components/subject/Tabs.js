@@ -9,11 +9,11 @@ export const Tabs = ({ svc }) => {
   const { tab = 0 } = subject;
 
   const TABS = svc
-    ? [t("subject.l.rst_v"), t("subject.l.tot_gph")]
-    : [t("subject.l.rst_v"), t("subject.l.tot_gph"), t("subject.l.f_diag")];
+    ? [t("PJ.RSLT_V"), t("PJ.TOT_GRF")]
+    : [t("PJ.RSLT_V"), t("PJ.TOT_GRF"), t("PJ.FIN_DIAG")];
 
   return (
-    <div className="flex w-fit border-b h-12 text-lg [&>div]:flex [&>div]:w-48 [&>div]:justify-center [&>div]:items-center">
+    <div className="flex w-fit border-b h-12 text-lg [&>div]:flex [&>div]:w-60 [&>div]:justify-center [&>div]:items-center">
       {TABS.map((v, i) => (
         <div
           aria-selected={tab === i}

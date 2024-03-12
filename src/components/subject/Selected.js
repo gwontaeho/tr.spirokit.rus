@@ -20,9 +20,9 @@ export const Selected = ({ trials, svc }) => {
     <ul className="card overflow-y-auto w-96 text-xs [&>li]:flex [&>li]:h-12 [&>li]:text-center [&>li>p]:flex-1 [&>li>p]:flex [&>li>p]:justify-center [&>li>p]:items-center">
       <li className="bg-header sticky top-0">
         <p></p>
-        <p>{t("subject.l.ept_v")}</p>
-        <p>{t("subject.l.per")}(%)</p>
-        <p>{t("subject.l.n_ran")}</p>
+        <p>{t("PJ.EXPT_V")}</p>
+        <p>{t("PJ.PER")}(%)</p>
+        <p>{t("PJ.NOR_RANG")}</p>
         <p>chg</p>
       </li>
       {titles.map((v) => {

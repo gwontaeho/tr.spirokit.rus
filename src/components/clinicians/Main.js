@@ -8,92 +8,101 @@ import { Loading } from "@/components";
 import { getClinicians, updateClinicianStatus } from "@/apis";
 
 export const Main = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    const perPage = 16;
-    const [name, setName] = useState("");
-    const [page, setPage] = useState(1);
+  const perPage = 16;
+  const [name, setName] = useState("");
+  const [page, setPage] = useState(1);
 
-    const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
-    const { data, isLoading, refetch } = useQuery({
-        queryKey: ["clinicians", name],
-        queryFn: () => getClinicians({ name, page: 1, size: 999 }),
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["clinicians", name],
+    queryFn: () => getClinicians({ name, page: 1, size: 999 }),
+  });
+  const clinicians = data?.response || [];
+  const total = clinicians.length;
+  const chunked = [];
+  for (let i = 0; i < clinicians.length; i += perPage) {
+    const sliced = clinicians.slice(i, i + perPage);
+    chunked.push(sliced);
+  }
+
+  const mutation = useMutation({
+    mutationFn: (variables) => updateClinicianStatus(variables),
+    onSuccess: refetch,
+  });
+
+  const onSubmit = ({ name }) => {
+    setName(name);
+    setPage(1);
+  };
+
+  const handleClick = ({ clinicianId, status }) => {
+    mutation.mutate({
+      clinicianId,
+      status: status === "enabled" ? "disabled" : "enabled",
     });
-    const clinicians = data?.response || [];
-    const total = clinicians.length;
-    const chunked = [];
-    for (let i = 0; i < clinicians.length; i += perPage) {
-        const sliced = clinicians.slice(i, i + perPage);
-        chunked.push(sliced);
-    }
+  };
 
-    const mutation = useMutation({
-        mutationFn: (variables) => updateClinicianStatus(variables),
-        onSuccess: refetch,
-    });
+  return (
+    <>
+      <main className="p-8 space-y-4">
+        <form className="flex space-x-4" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            {...register("name")}
+            className="input"
+            placeholder={t("PJ.M_12")}
+          />
+          <button className="material-symbols-outlined input w-fit">
+            search
+          </button>
+        </form>
+        <div className="flex-1 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          {clinicians.map((v, i) => {
+            const { clinicianId, clinicianName, date, roleName, status } = v;
 
-    const onSubmit = ({ name }) => {
-        setName(name);
-        setPage(1);
-    };
-
-    const handleClick = ({ clinicianId, status }) => {
-        mutation.mutate({ clinicianId, status: status === "enabled" ? "disabled" : "enabled" });
-    };
-
-    return (
-        <>
-            <main className="p-8 space-y-4">
-                <form className="flex space-x-4" onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("name")} className="input" placeholder={t("PJ.M_12")} />
-                    <button className="material-symbols-outlined input w-fit">search</button>
-                </form>
-                <div className="flex-1 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {clinicians.map((v, i) => {
-                        const { clinicianId, clinicianName, date, roleName, status } = v;
-
-                        return (
-                            <div
-                                key={`clinician-${clinicianId}`}
-                                className="relative card h-40 p-4 flex flex-col justify-between [&>div]:flex [&>div]:items-center [&>div>span]:w-32 [&>div>span]:text-gray-400 [&>div>span]:text-sm"
-                            >
-                                <div>
-                                    <span>{t("PJ.NM")}</span>
-                                    <p className="text-primary">{clinicianName}</p>
-                                </div>
-                                <div>
-                                    <span>{t("PJ.ROLE")}</span>
-                                    <p>{roleName}</p>
-                                </div>
-                                <div>
-                                    <span>{t("PJ.REG")}</span>
-                                    <p>{date}</p>
-                                </div>
-                                <div>
-                                    <span>{t("PJ.STAT")}</span>
-                                    <p
-                                        data-status={status}
-                                        className="text-green-600 data-[status=disabled]:text-red-600"
-                                    >
-                                        {status === "enabled" ? t("PJ.AUTH") : t("PJ.DEN")}
-                                    </p>
-                                </div>
-                                <button
-                                    className="bottom-4 right-4 absolute input h-8 w-fit"
-                                    onClick={() => handleClick({ clinicianId, status })}
-                                >
-                                    {status === "enabled" ? t("PJ.DEN") : t("PJ.AUTH")}
-                                </button>
-                            </div>
-                        );
-                    })}
+            return (
+              <div
+                key={`clinician-${clinicianId}`}
+                className="relative card min-h-[10rem] gap-2 p-4 flex flex-col justify-between [&>div]:flex [&>div]:gap-8 [&>div]:items-center [&>div>span]:w-32 [&>div>span]:text-gray-400 [&>div>span]:text-sm"
+              >
+                <div>
+                  <span>{t("PJ.NM")}</span>
+                  <p className="text-primary">{clinicianName}</p>
                 </div>
-                {/* {!!total && <Pagination page={page} perPage={perPage} count={total} onChange={(v) => setPage(v)} />} */}
-            </main>
-            {(isLoading || mutation.isLoading) && <Loading />}
-        </>
-    );
+                <div>
+                  <span>{t("PJ.ROLE")}</span>
+                  <p>{roleName}</p>
+                </div>
+                <div>
+                  <span>{t("PJ.REG")}</span>
+                  <p>{date}</p>
+                </div>
+                <div>
+                  <span>{t("PJ.STAT")}</span>
+                  <p
+                    data-status={status}
+                    className="text-green-600 data-[status=disabled]:text-red-600"
+                  >
+                    {status === "enabled" ? t("PJ.AUTH") : t("PJ.DEN")}
+                  </p>
+                </div>
+                <button
+                  className="bottom-4 right-4 absolute input h-8 w-fit"
+                  onClick={() => handleClick({ clinicianId, status })}
+                >
+                  {status === "enabled" ? t("PJ.DEN") : t("PJ.AUTH")}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {/* {!!total && <Pagination page={page} perPage={perPage} count={total} onChange={(v) => setPage(v)} />} */}
+      </main>
+      {(isLoading || mutation.isLoading) && <Loading />}
+    </>
+  );
 };
 
 // export const Main = () => {

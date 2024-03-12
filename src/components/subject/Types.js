@@ -42,7 +42,7 @@ export const Types = ({ options }) => {
 
   return (
     <section className="card">
-      <div className="p-4 font-medium">{t("subject.l.mea_type")}</div>
+      <div className="p-4 font-medium">{t("MEA_TYPE")}</div>
       {options.map(({ label, isNull, isLoading, hasReport }, i) => {
         return (
           <div
@@ -65,7 +65,7 @@ export const Types = ({ options }) => {
             {hasReport &&
               !isLoading &&
               (isNull ? (
-                <p>{t("subject.m.i_0")}</p>
+                <p>{t("PJ.M_8")}</p>
               ) : (
                 <div className="flex space-x-2">
                   <button

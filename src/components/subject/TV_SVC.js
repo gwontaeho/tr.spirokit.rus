@@ -10,8 +10,14 @@ export const TV_SVC = ({ data }) => {
 
   const getMaxRatio = () => {
     const flat = data.map((v) => v.data).flat();
-    const ratioMaxY = flat.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), { y: initMaxY })["y"] / initMaxY;
-    const ratioMinY = flat.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), { y: initMinY })["y"] / initMinY;
+    const ratioMaxY =
+      flat.reduce((prev, curr) => (prev.y > curr.y ? prev : curr), {
+        y: initMaxY,
+      })["y"] / initMaxY;
+    const ratioMinY =
+      flat.reduce((prev, curr) => (prev.y < curr.y ? prev : curr), {
+        y: initMinY,
+      })["y"] / initMinY;
     return Math.max(ratioMaxY, ratioMinY);
   };
 
@@ -64,7 +70,7 @@ export const TV_SVC = ({ data }) => {
       <div className="text-right text-xs">Time(s)</div>
       {!data.length && (
         <div className="absolute rounded-lg w-full h-full bg-black/20 top-0 left-0 flex items-center justify-center">
-          <p className="text-white text-3xl">{t("subject.m.i_1")}</p>
+          <p className="text-white text-3xl">{t("PJ.M_9")}</p>
         </div>
       )}
     </section>
