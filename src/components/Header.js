@@ -8,9 +8,24 @@ import { LOCALES } from "@/constants";
 import { useLocale } from "@/hooks";
 import { getMe } from "@/apis";
 
+export const I18nButton = () => {
+    const { locale, setLocale } = useLocale();
+
+    return (
+        <select className="input w-fit" value={locale} onChange={(e) => setLocale(e.target.value)}>
+            {LOCALES.map(({ label, value }) => {
+                return (
+                    <option key={`locale-${value}`} value={value}>
+                        {label}
+                    </option>
+                );
+            })}
+        </select>
+    );
+};
+
 export const Header = ({ h1 }) => {
     const { t } = useTranslation();
-    const { locale, setLocale } = useLocale();
 
     const accessToken = getCookie("accessToken");
 
@@ -24,15 +39,7 @@ export const Header = ({ h1 }) => {
         <header className="h-20 px-8 flex items-center justify-between bg-white border-b">
             <h1 className="text-xl font-medium">{t(h1)}</h1>
             <div className="flex items-center space-x-4">
-                <select className="input w-fit" value={locale} onChange={(e) => setLocale(e.target.value)}>
-                    {LOCALES.map(({ label, value }) => {
-                        return (
-                            <option key={`locale-${value}`} value={value}>
-                                {label}
-                            </option>
-                        );
-                    })}
-                </select>
+                <I18nButton />
 
                 <Link href="/settings" className="material-symbols-outlined text-primary">
                     settings

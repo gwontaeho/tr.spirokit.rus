@@ -33,7 +33,7 @@ export const Graphs = ({ trials }) => {
                 <TV data={tvs} />
                 {!selectedTrials.length && (
                     <div className="absolute rounded-lg w-full h-full bg-black/20 top-0 left-0 flex items-center justify-center">
-                        <p className="text-white text-3xl">{t("subject.m.i_1")}</p>
+                        <p className="text-white text-3xl">{t("PJ.M_9")}</p>
                     </div>
                 )}
             </div>
@@ -42,7 +42,10 @@ export const Graphs = ({ trials }) => {
                     {pre.map(({ measurementId, best, bronchodilator, date, graph }, i) => {
                         const { volumeFlow, timeVolume } = graph;
                         return (
-                            <label key={`pre-graph-${measurementId}`} className="flex flex-col card cursor-pointer hover:bg-gray-100">
+                            <label
+                                key={`pre-graph-${measurementId}`}
+                                className="flex flex-col card cursor-pointer hover:bg-gray-100"
+                            >
                                 <div className="p-4 text-sm flex justify-between relative">
                                     <div />
                                     {best && (
@@ -77,7 +80,10 @@ export const Graphs = ({ trials }) => {
                     {post.map(({ measurementId, best, bronchodilator, date, graph }, i) => {
                         const { volumeFlow, timeVolume } = graph;
                         return (
-                            <label key={`post-graph-${measurementId}`} className="flex flex-col card cursor-pointer hover:bg-gray-100">
+                            <label
+                                key={`post-graph-${measurementId}`}
+                                className="flex flex-col card cursor-pointer hover:bg-gray-100"
+                            >
                                 <div className="p-4 text-sm flex justify-between relative">
                                     <div />
                                     {best && (

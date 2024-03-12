@@ -8,14 +8,14 @@ export const Clinician = ({ data }) => {
 
     return (
         <section className="card w-80">
-            <div className="p-4 font-medium">{t("subject.l.cli_inf")}</div>
+            <div className="p-4 font-medium">{t("PJ.CLI_INFO")}</div>
             <div className="p-4 flex flex-col text-sm space-y-4 [&>div]:flex [&>div>span]:w-32 [&>div>span]:text-gray-400">
                 <div>
-                    <span>{t("subject.l.nm")}</span>
+                    <span>{t("PJ.NM")}</span>
                     <p>{clinicianName}</p>
                 </div>
                 <div>
-                    <span>{t("subject.l.role")}</span>
+                    <span>{t("PJ.ROLE")}</span>
                     <p>{clinicianRoleName}</p>
                 </div>
             </div>

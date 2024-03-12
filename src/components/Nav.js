@@ -13,9 +13,9 @@ export const Nav = ({ current }) => {
     const { chartNumber } = subject;
 
     const PAGES = [
-        { label: "layout.l.sch_sbj", page: "subjects" },
-        { label: "layout.l.cli_mng", page: "clinicians" },
-        { label: "layout.l.dvi_mng", page: "devices" },
+        { label: "PJ.SRCH_SUB", page: "subjects" },
+        { label: "PJ.CLI_MGMT", page: "clinicians" },
+        { label: "PJ.DEV_MGMT", page: "devices" },
     ];
 
     return (
@@ -43,7 +43,7 @@ export const Nav = ({ current }) => {
             </ul>
 
             <div className="mt-auto px-2 py-4">
-                <div className="text-center text-gray-400">{t("layout.l.rct_sch")}</div>
+                <div className="text-center text-gray-400">{t("PJ.RCNT_SRCH")}</div>
                 <ul className="lex flex-col">
                     <li>
                         <Link

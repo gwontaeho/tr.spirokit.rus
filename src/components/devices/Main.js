@@ -14,7 +14,10 @@ const Report = ({ selectedDevice, calibration }) => {
 
     return (
         <div className="absolute w-0 h-0 overflow-hidden">
-            <div id="report-device" className="relative w-[1090px] h-[1682px] min-w-[1090px] min-h-[1682px] px-[30px] bg-white">
+            <div
+                id="report-device"
+                className="relative w-[1090px] h-[1682px] min-w-[1090px] min-h-[1682px] px-[30px] bg-white"
+            >
                 <div className="absolute top-0 left-0 w-[144px] h-[144px]">
                     <Image priority src="/logo_tr.svg" alt="logo_tr" width={144} height={144} />
                 </div>
@@ -22,7 +25,9 @@ const Report = ({ selectedDevice, calibration }) => {
                     <div className="text-[30px]">SPIROMETRY REPORT</div>
                     {/* <div className="text-[24px]">[ ? ]</div> */}
                 </div>
-                <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">SpiroKit Serial Number</div>
+                <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
+                    SpiroKit Serial Number
+                </div>
                 <div className="border border-black flex mb-[16px] font-[600] [&>div]:py-1.5 [&>div]:px-3">
                     <div className="flex-1 border-r border-black">SpiroKit Serial Number</div>
                     <div className="flex-1">{selectedDevice}</div>
@@ -58,7 +63,9 @@ const Report = ({ selectedDevice, calibration }) => {
                         <div className="flex-1">{gain.exhale}</div>
                     </div>
                 </div>
-                <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">Calibration Result</div>
+                <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">
+                    Calibration Result
+                </div>
                 <div className="border border-black mb-[16px] font-[600] [&>div>div]:py-1.5 [&>div>div]:px-3">
                     <div className="flex border-b border-black">
                         <div className="flex-1 border-r border-black">Inhale Volume(L)</div>
@@ -139,11 +146,11 @@ export const Main = () => {
             <main className="flex p-8 space-x-8">
                 <div className="space-y-4">
                     <section className="w-80 card">
-                        <div className="p-4 font-medium">{t("dev.l.list")}</div>
+                        <div className="p-4 font-medium">{t("PJ.DEV_LI")}</div>
                         <ul className="text-sm [&>li]:p-4 [&>li]:flex [&>li>span]:w-28">
                             <li>
-                                <span>{t("dev.l.sn")}</span>
-                                <p>{t("dev.l.cnt")}</p>
+                                <span>{t("PJ.SN")}</span>
+                                <p>{t("PJ.CAL_TIMES")}</p>
                             </li>
                             {devices.map(({ serialNumber, calibrationCount }) => (
                                 <li
@@ -161,7 +168,7 @@ export const Main = () => {
 
                     {!!selectedDevice && (
                         <section className="card">
-                            <div className="p-4 font-medium">{t("dev.l.his")}</div>
+                            <div className="p-4 font-medium">{t("PJ.CAL_HIS")}</div>
                             <ul className="text-sm max-h-96 overflow-y-auto [&>li]:p-4">
                                 {calibrations.map(({ calibrationId, date }) => (
                                     <li
@@ -179,7 +186,7 @@ export const Main = () => {
 
                     {!!selectedCalibration && (
                         <section className="card">
-                            <div className="p-4 font-medium">{t("dev.l.down")}</div>
+                            <div className="p-4 font-medium">{t("PJ.DL_CAL_RSLT")}</div>
                             <div className="flex items-center justify-center space-x-4 text-sm p-4">
                                 <button className="input h-8 w-fit" onClick={handleClickJpg}>
                                     JPG

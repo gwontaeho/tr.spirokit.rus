@@ -16,7 +16,10 @@ export const Main = () => {
 
     const { register, handleSubmit } = useForm();
 
-    const { data, isLoading, refetch } = useQuery({ queryKey: ["clinicians", name], queryFn: () => getClinicians({ name, page: 1, size: 999 }) });
+    const { data, isLoading, refetch } = useQuery({
+        queryKey: ["clinicians", name],
+        queryFn: () => getClinicians({ name, page: 1, size: 999 }),
+    });
     const clinicians = data?.response || [];
     const total = clinicians.length;
     const chunked = [];
@@ -43,7 +46,7 @@ export const Main = () => {
         <>
             <main className="p-8 space-y-4">
                 <form className="flex space-x-4" onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("name")} className="input" placeholder={t("cli.m.p_0")} />
+                    <input {...register("name")} className="input" placeholder={t("PJ.M_12")} />
                     <button className="material-symbols-outlined input w-fit">search</button>
                 </form>
                 <div className="flex-1 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -56,25 +59,31 @@ export const Main = () => {
                                 className="relative card h-40 p-4 flex flex-col justify-between [&>div]:flex [&>div]:items-center [&>div>span]:w-32 [&>div>span]:text-gray-400 [&>div>span]:text-sm"
                             >
                                 <div>
-                                    <span>{t("cli.l.nm")}</span>
+                                    <span>{t("PJ.NM")}</span>
                                     <p className="text-primary">{clinicianName}</p>
                                 </div>
                                 <div>
-                                    <span>{t("cli.l.role")}</span>
+                                    <span>{t("PJ.ROLE")}</span>
                                     <p>{roleName}</p>
                                 </div>
                                 <div>
-                                    <span>{t("cli.l.reg_dt")}</span>
+                                    <span>{t("PJ.REG")}</span>
                                     <p>{date}</p>
                                 </div>
                                 <div>
-                                    <span>{t("cli.l.aut_man")}</span>
-                                    <p data-status={status} className="text-green-600 data-[status=disabled]:text-red-600">
-                                        {status === "enabled" ? t("cli.l.aut") : t("cli.l.den")}
+                                    <span>{t("PJ.STAT")}</span>
+                                    <p
+                                        data-status={status}
+                                        className="text-green-600 data-[status=disabled]:text-red-600"
+                                    >
+                                        {status === "enabled" ? t("PJ.AUTH") : t("PJ.DEN")}
                                     </p>
                                 </div>
-                                <button className="bottom-4 right-4 absolute input h-8 w-fit" onClick={() => handleClick({ clinicianId, status })}>
-                                    {status === "enabled" ? t("cli.l.den") : t("cli.l.aut")}
+                                <button
+                                    className="bottom-4 right-4 absolute input h-8 w-fit"
+                                    onClick={() => handleClick({ clinicianId, status })}
+                                >
+                                    {status === "enabled" ? t("PJ.DEN") : t("PJ.AUTH")}
                                 </button>
                             </div>
                         );
