@@ -102,7 +102,7 @@ export const CONDITIONS = {
         title: "Obstructive Moderate",
         en: "Moderately severe case of obstructive ventilatory disorder is suspected. Obstructive ventilatory disorder includes asthma, emphysema, and chronic bronchitis. Consult with a doctor to be properly cared for.",
         ko: "폐쇄성환기장애 중등중증으로 의심됩니다. 폐쇄성환기장애에는 천식, 폐기종, 만성기관지염 등이 있습니다. 진료의사와 상담하시어 적절히 관리받으시길 바랍니다.",
-        guide: "subject.p.dr_5",
+        DR: "subject.p.dr_5",
     },
     OBSTRUCTIVE_SEVERE: {
         title: "Obstructive Severe",
