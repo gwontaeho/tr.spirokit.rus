@@ -111,7 +111,7 @@ const FVC = ({ data }) => {
                 </div>
               </div>
               <div className="p-8 space-y-2">
-                <p>{t(CONDITIONS[diagnosis.condition]["result"])}</p>
+                <p>{t(CONDITIONS[diagnosis.condition]?.["result"])}</p>
               </div>
             </div>
           </div>

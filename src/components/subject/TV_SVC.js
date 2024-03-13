@@ -42,7 +42,7 @@ export const TV_SVC = ({ data }) => {
 
   return (
     <section className="relative w-full h-full flex flex-col p-4">
-      <div className="text-xs">Volume(V)</div>
+      <div className="text-xs">Volume(L)</div>
       <ResponsiveLine
         colors={(v) => COLORS_GRAPH[v.i % 10]}
         data={data}

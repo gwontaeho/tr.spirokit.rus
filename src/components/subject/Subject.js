@@ -17,13 +17,13 @@ export const Subject = ({ data }) => {
   } = subjectDetails;
   const period = smokingExperience
     ? !!smokingStopAge
-      ? `${Number(smokingStopAge) - Number(smokingStartAge)}년`
+      ? `${Number(smokingStopAge) - Number(smokingStartAge)}${t("PJ.YEAR")}`
       : `${
           new Date().getFullYear() -
           Number(birthday.slice(0, 4)) +
           1 -
           Number(smokingStartAge)
-        }년`
+        }${t("PJ.YEAR")}`
     : "-";
 
   const GENDERS = { m: "남", f: "여" };

@@ -237,7 +237,7 @@ export const Main = () => {
                       }
                     },
                   })}
-                  label={t("PJ.EX")}
+                  label={t("PJ.XP")}
                   options={[
                     { key: t("PJ.Y"), value: true },
                     { key: t("PJ.N"), value: false },

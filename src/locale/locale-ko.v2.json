@@ -68,6 +68,18 @@
     "CNCL": "취소",
     "ACCT_INFO": "계정정보",
     "MOD": "수정",
+    "YEAR": "년",
+
+    "ENV": "Enviroment",
+    "TEMP": "Temperature",
+    "PRES": "Pressure",
+    "HUM": "Humidity",
+
+    "GAIN": "Gain",
+    "INHALE": "Inhale",
+    "EXHALE": "Exhale",
+
+    "CAL": "Calibration",
 
     "D_0": "정상\n(normal)",
     "D_1": "제한성환기장애\n(restrictive)",
@@ -141,7 +153,14 @@
     "BD": "Spirometry(BTPS) Best Data",
     "ATPD": "Spirometry(BTPS) All Trials Pre Data",
     "INTERP": "Interpretation",
-    "SUB_RSLT": "Subject Result"
+    "SUB_RSLT": "Subject Result",
+
+    "TEMP": "Temperature",
+    "PRES": "Pressure",
+    "HUM": "Humidity",
+    "I_GAIN": "Inhale Gain",
+    "E_GAIN": "Exhale Gain",
+    "CAL_RSLT": "Calibration Result"
   },
   "CR": {
     "DATE": "Date",

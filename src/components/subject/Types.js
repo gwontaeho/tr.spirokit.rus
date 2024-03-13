@@ -42,7 +42,7 @@ export const Types = ({ options }) => {
 
   return (
     <section className="card">
-      <div className="p-4 font-medium">{t("MEA_TYPE")}</div>
+      <div className="p-4 font-medium">{t("PJ.MEA_TYPE")}</div>
       {options.map(({ label, isNull, isLoading, hasReport }, i) => {
         return (
           <div

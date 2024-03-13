@@ -68,6 +68,18 @@
     "CNCL": "Cancel",
     "ACCT_INFO": "Account information",
     "MOD": "Modification",
+    "YEAR": "Year",
+
+    "ENV": "Enviroment",
+    "TEMP": "Temperature",
+    "PRES": "Pressure",
+    "HUM": "Humidity",
+
+    "GAIN": "Gain",
+    "INHALE": "Inhale",
+    "EXHALE": "Exhale",
+
+    "CAL": "Calibration",
 
     "D_0": "Normal",
     "D_1": "Restrictive\nPulmonary\nImpairment\n(restrictive)",
@@ -138,7 +150,14 @@
     "BD": "Spirometry(BTPS) Best Data",
     "ATPD": "Spirometry(BTPS) All Trials Pre Data",
     "INTERP": "Interpretation",
-    "SUB_RSLT": "Subject Result"
+    "SUB_RSLT": "Subject Result",
+
+    "TEMP": "Temperature",
+    "PRES": "Pressure",
+    "HUM": "Humidity",
+    "I_GAIN": "Inhale Gain",
+    "E_GAIN": "Exhale Gain",
+    "CAL_RSLT": "Calibration Result"
   },
   "CR": {
     "DATE": "Date",

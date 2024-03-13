@@ -53,7 +53,7 @@ const Report = ({ selectedDevice, calibration }) => {
           {t("CR.DATE")}
         </div>
         <div className="border border-black flex mb-[16px] font-[600] [&>div]:py-1.5 [&>div]:px-3">
-          <div className="flex-1 border-r border-black">Calibration Date</div>
+          <div className="flex-1 border-r border-black">{t("CR.DATE")}</div>
           <div className="flex-1">{date}</div>
         </div>
         <div className="text-center h-[38px] bg-[#DEE9FF] text-[24px] font-[700] mb-[16px]">

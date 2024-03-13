@@ -335,24 +335,24 @@ export const ReportFVC = ({ data }) => {
         </table>
         <div className="flex justify-between font-[700] text-[#1B3FA7] mb-[8px]">
           <div>SpiroKit Serial Number : {calibration.serialNumber}</div>
-          <div>[ Calibration Result ]</div>
+          <div>[ {t("SR.CAL_RSLT")} ]</div>
         </div>
         <table className="w-full mb-[16px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
-              <th>Temperature(°C)</th>
+              <th>{t("SR.TEMP")}(°C)</th>
               <td>{calibration.temperature}</td>
-              <th>Relative Humidity(%)</th>
+              <th>{t("SR.HUM")}(%)</th>
               <td>{calibration.humidity}</td>
-              <th>P cmH2O</th>
+              <th>{t("SR.PRES")}(cmH2O)</th>
               <td>{calibration.pressure}</td>
             </tr>
             <tr>
-              <th>Calibartion Date</th>
+              <th>{t("SR.DATE")}</th>
               <td>{calibration.date}</td>
-              <th>Inhale Gain</th>
+              <th>{t("SR.I_GAIN")}</th>
               <td>{calibration.gain?.inhale}</td>
-              <th>Exhale Gain</th>
+              <th>{t("SR.E_GAIN")}</th>
               <td>{calibration.gain?.exhale}</td>
             </tr>
           </tbody>
@@ -481,7 +481,7 @@ export const ReportFVC = ({ data }) => {
           FVL Error Code {diagnosis.errorCode} Grade {diagnosis.suitability}
         </div>
         <div className="font-[500]">
-          {CONDITIONS[diagnosis.condition]?.[locale]}
+          {t(CONDITIONS[diagnosis.condition]?.["result"])}
         </div>
       </div>
     </div>
@@ -576,24 +576,24 @@ export const ReportSVC = ({ data }) => {
         </table>
         <div className="flex justify-between font-[700] text-[#1B3FA7] mb-[8px]">
           <div>SpiroKit Serial Number : {calibration.serialNumber}</div>
-          <div>[ Calibration Result ]</div>
+          <div>[ {t("SR.CAL_RSLT")} ]</div>
         </div>
         <table className="w-full mb-[16px] text-[14px]">
           <tbody className="[&>tr>*]:border [&>tr>*]:h-[28px] [&>tr>*]:pl-[8px] [&>tr>th]:font-[500] [&>tr>th]:text-left [&>tr>td]:font-[700]">
             <tr className="[&>*]:w-1/6">
-              <th>Temperature(°C)</th>
+              <th>{t("SR.TEMP")}(°C)</th>
               <td>{calibration.temperature}</td>
-              <th>Relative Humidity(%)</th>
+              <th>{t("SR.HUM")}(%)</th>
               <td>{calibration.humidity}</td>
-              <th>P cmH2O</th>
+              <th>{t("SR.PRES")}(cmH2O)</th>
               <td>{calibration.pressure}</td>
             </tr>
             <tr>
-              <th>Calibartion Date</th>
+              <th>{t("SR.DATE")}</th>
               <td>{calibration.date}</td>
-              <th>Inhale Gain</th>
+              <th>{t("SR.I_GAIN")}</th>
               <td>{calibration.gain?.inhale}</td>
-              <th>Exhale Gain</th>
+              <th>{t("SR.E_GAIN")}</th>
               <td>{calibration.gain?.exhale}</td>
             </tr>
           </tbody>
