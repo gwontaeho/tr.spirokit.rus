@@ -49,13 +49,18 @@ export const QueryProvider = ({ children }) => {
 
                         if (holder.current.isLocked) {
                             try {
+                                /* await for resolve */
                                 await holder.current.promise;
                                 return query.fetch();
                             } catch (error) {
+                                /* reject (refresh error) */
                                 return;
                             }
-                        } else holder.current.lock();
+                        } else {
+                            holder.current.lock();
+                        }
 
+                        /* try refresh */
                         try {
                             const {
                                 data: {
@@ -64,9 +69,12 @@ export const QueryProvider = ({ children }) => {
                             } = await axiosInstance.post("/v1/auth/renewal", null, refreshHeader());
                             setCookie("accessToken", accessToken);
                             error.config.headers.Authorization = `Bearer ${accessToken}`;
+
+                            /* unlock with resolve */
                             holder.current.resolve();
                             return query.fetch();
                         } catch (error) {
+                            /* unlock with reject */
                             holder.current.reject();
                             deleteCookie("accessToken");
                             deleteCookie("refreshToken");
